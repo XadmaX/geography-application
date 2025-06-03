@@ -5,9 +5,17 @@ const router = Router();
 
 // TODO: Add controllers
 
-const serverError = res => err => {
-  console.error('Server not work!', err);
-  res.status(500).send('Server not work!');
+// Universal server error handler. Can be used either as middleware
+// `(err, req, res)` or as a helper returning a handler when passed only `res`.
+const serverError = (errOrRes, req, res) => {
+  if (arguments.length === 1) {
+    const response = errOrRes;
+    return error => serverError(error, null, response);
+  }
+
+  const error = errOrRes;
+  console.error('Server not working!', error);
+  res.status(500).send('Server not working!');
 };
 
 /*
