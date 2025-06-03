@@ -5,9 +5,15 @@ const router = Router();
 
 // TODO: Add controllers
 
-const serverError = () => {
-  console.log('Server not work!');
-  res.status(500).send('Server not work!');
+// Allows calling either serverError(res) or serverError(err, req, res)
+const serverError = (arg1, req, res) => {
+  if (res === undefined) {
+    const response = arg1;
+    return err => serverError(err, req, response);
+  }
+
+  console.error('Server not working!', arg1);
+  res.status(500).send('Server not working!');
 };
 
 /*
@@ -17,23 +23,16 @@ const serverError = () => {
 router.get('/', (req, res) => {
   Question.find()
     .then(questions => {
-      console.log('Show all questions.');
+      const amount = parseInt(req.query.amount, 10);
+      if (amount) {
+        console.log('Show ' + amount + ' questions.');
+        questions = questions.slice(0, amount);
+      } else {
+        console.log('Show all questions.');
+      }
       res.json(questions);
     })
-    .catch(serverError);
-});
-
-
-// get a specific amount of questions from the db
-router.get('/', (req, res) => {
-  Question.find()
-    .then(questions => {
-      let questionAmount = req.query.amount;
-      console.log('Show ' + questionAmount + ' questions.');
-      let result = questions.slice(0, questionAmount);
-      res.json(result);
-    })
-    .catch(serverError);
+    .catch(serverError(res));
 });
 
 // get a single question from the db
@@ -43,16 +42,16 @@ router.get('/:id', (req, res) => {
       console.log('Show one question');
       res.json(question);
     })
-    .catch(serverError);
+    .catch(serverError(res));
 });
 
 router.post('/', (req, res) => {
-  console.log('Creae new question ' + req.body);
+  console.log('Creae new question ' + JSON.stringify(req.body));
   Question.create(req.body)
     .then(question => {
       res.json(question);
     })
-    .catch(serverError);
+    .catch(serverError(res));
 });
 
 router.put('/:id', (req, res) => {
@@ -63,7 +62,7 @@ router.put('/:id', (req, res) => {
         res.json(question);
       });
     })
-    .catch(serverError);
+    .catch(serverError(res));
 });
 
 router.delete('/:id', (req, res) => {
@@ -72,7 +71,7 @@ router.delete('/:id', (req, res) => {
       console.log('Delete ' + question.toString());
       res.json(question);
     })
-    .catch(serverError);
+    .catch(serverError(res));
 });
 
 module.exports = router;
