@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('Creae new question ' + JSON.stringify(req.body));
+  console.log('Create new question ' + JSON.stringify(req.body));
   Question.create(req.body)
     .then(question => {
       res.json(question);
