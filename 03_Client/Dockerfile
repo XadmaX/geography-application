@@ -1,4 +1,4 @@
-FROM node:8.14-alpine
+FROM node:18-alpine
 LABEL maintainer="xadmax@gmail.com"
 ENV GEO_SRV="geography-server:4000"
 WORKDIR /usr/src/app
