@@ -65,7 +65,7 @@ var data = [
   },
   {
     question: 'What country calls itself Nippon',
-    answers: ['Japan', 'England', 'Russian', 'USA'],
+    answers: ['Japan', 'England', 'Russia', 'USA'],
     answer: 0,
     weight: 1,
   },
@@ -79,7 +79,7 @@ var data = [
     question: 'Which two countries are joined by the Bridge of No Return',
     answers: [
       'North Korea and South Korea',
-      'China and Jappan',
+      'China and Japan',
       'USA and USSR',
       'Ukraine and Russia',
     ],
@@ -102,7 +102,7 @@ var data = [
   {
     question:
       'Where, as of 2009, did the world’s heaviest annual rainfall on record fall',
-    answers: ['India', 'Germany', 'Franch', 'Kenya'],
+    answers: ['India', 'Germany', 'France', 'Kenya'],
     answer: 0,
     weight: 1,
   },
