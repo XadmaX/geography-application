@@ -6,8 +6,8 @@ const router = Router();
 // TODO: Add controllers
 
 const serverError = () => {
-  console.log('Server not work!');
-  res.status(500).send('Server not work!');
+  console.log('Server not working!');
+  res.status(500).send('Server not working!');
 };
 
 /*
@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('Creae new question ' + req.body);
+  console.log('Create new question ' + req.body);
   Question.create(req.body)
     .then(question => {
       res.json(question);
