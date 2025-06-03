@@ -6,15 +6,13 @@ const router = Router();
 // TODO: Add controllers
 
 // Allows calling either serverError(res) or serverError(err, req, res)
-const serverError = (resOrErr, req, res) => {
-  if (res === undefined) {
-    const response = resOrErr;
-    return err => {
-      console.error('Server not working!', err);
-      response.status(500).send('Server not working!');
-    };
+const serverError = (arg1, req, res) => {
+  if (!res) {
+    const response = arg1;
+    return err => serverError(err, req, response);
   }
-  console.error('Server not working!', resOrErr);
+
+  console.error('Server not working!', arg1);
   res.status(500).send('Server not working!');
 };
 
