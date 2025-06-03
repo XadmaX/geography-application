@@ -43,7 +43,7 @@ db.questions.insertMany([{
     "weight": 1
 }, {
     "question": "What country calls itself Nippon",
-    "answers": ["Japan", "England", "Russian", "USA"],
+    "answers": ["Japan", "England", "Russia", "USA"],
     "answer": 0,
     "weight": 1
 }, {
@@ -53,7 +53,7 @@ db.questions.insertMany([{
     "weight": 1
 }, {
     "question": "Which two countries are joined by the Bridge of No Return",
-    "answers": ["North Korea and South Korea", "China and Jappan", "USA and USSR", "Ukraine and Russia"],
+    "answers": ["North Korea and South Korea", "China and Japan", "USA and USSR", "Ukraine and Russia"],
     "answer": 0,
     "weight": 1
 }, {
@@ -68,7 +68,7 @@ db.questions.insertMany([{
     "weight": 1
 }, {
     "question": "Where, as of 2009, did the world’s heaviest annual rainfall on record fall",
-    "answers": ["India", "Germany", "Franch", "Kenya"],
+    "answers": ["India", "Germany", "France", "Kenya"],
     "answer": 0,
     "weight": 1
 }, {

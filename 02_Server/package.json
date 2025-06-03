@@ -4,7 +4,7 @@
     "description": "Server on Node.js for Geography quiz.",
     "main": "app.js",
     "scripts": {
-        "test": "npm test",
+        "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node app.js"
     },
     "repository": {
