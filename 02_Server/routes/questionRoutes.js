@@ -7,7 +7,7 @@ const router = Router();
 
 // Allows calling either serverError(res) or serverError(err, req, res)
 const serverError = (arg1, req, res) => {
-  if (!res) {
+  if (res === undefined) {
     const response = arg1;
     return err => serverError(err, req, response);
   }
