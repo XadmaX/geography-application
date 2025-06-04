@@ -7,7 +7,7 @@ const router = Router();
 
 // Universal server error handler. Can be used either as middleware
 // `(err, req, res)` or as a helper returning a handler when passed only `res`.
-const serverError = (errOrRes, req, res) => {
+function serverError(errOrRes, req, res) {
   if (arguments.length === 1) {
     const response = errOrRes;
     return error => serverError(error, null, response);
@@ -16,7 +16,7 @@ const serverError = (errOrRes, req, res) => {
   const error = errOrRes;
   console.error('Server not working!', error);
   res.status(500).send('Server not working!');
-};
+}
 
 /*
  * TODO: Если REST то /questions пусть отдает и так все вопросы?
@@ -25,10 +25,10 @@ const serverError = (errOrRes, req, res) => {
 router.get('/', (req, res) => {
   Question.find()
     .then(questions => {
-      const amount = parseInt(req.query.amount, 10);
-      if (amount) {
-        console.log('Show ' + amount + ' questions.');
-        questions = questions.slice(0, amount);
+      const number = parseInt(req.query.number, 10);
+      if (number) {
+        console.log('Show ' + number + ' questions.');
+        questions = questions.slice(0, number);
       } else {
         console.log('Show all questions.');
       }

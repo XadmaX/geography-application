@@ -23,15 +23,19 @@ app.use('/questions', questionRoutes);
 app.use(errorMiddleware);
 
 // connect to mongodb geography-db
-mongoose.Promise = global.Promise;
-mongoose
-  .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
-  .then(() => {
-    // Listen for requests
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.Promise = global.Promise;
+  mongoose
+    .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
+    .then(() => {
+      // Listen for requests
       app.listen(process.env.PORT || 4000, function() {
-      console.log('Connected to Mongodb');
-      console.log('API listening on port 4000');
-      console.log('Server started and wait requests');
-    });
-  })
-  .catch(error => console.log(error));
+        console.log('Connected to Mongodb');
+        console.log('API listening on port 4000');
+        console.log('Server started and wait requests');
+      });
+    })
+    .catch(error => console.log(error));
+}
+
+module.exports = app;
