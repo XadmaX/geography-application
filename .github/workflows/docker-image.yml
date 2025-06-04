@@ -9,25 +9,40 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set tag
-      run: echo "TAG_NAME=$(date +%s)" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-    - name: Build the Docker image
-      run: |
-        cd 01_DB
-        docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
-        
-    - name: Push Docker image to Docker.Hub
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies and test Server
+        run: |
+          cd 02_Server
+          npm ci
+          npm test
+
+      - name: Install dependencies and test Client
+        run: |
+          cd 03_Client
+          npm ci
+          CI=true npm test -- --watchAll=false
+
+      - name: Set tag
+        run: echo "TAG_NAME=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build the Docker image
+        run: |
+          cd 01_DB
+          docker build . --file Dockerfile.single --tag ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
+
+      - name: Push Docker image to Docker.Hub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/geo-db:$TAG_NAME
