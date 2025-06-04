@@ -22,4 +22,4 @@ docker run -d -it -p 3000:3000 --name=geography-frontend --network geo-net geo-f
 
 sleep 5s
 
-curl -X GET http://localhost:4000/questions?amount=2
+curl -X GET http://localhost:4000/questions?number=2
