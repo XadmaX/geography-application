@@ -9,7 +9,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    API.fetchQuesions(5).then(questions => this.setState({ questions }));
+    API.fetchQuestions(5).then(questions => this.setState({ questions }));
   }
 
   render() {
