@@ -21,13 +21,13 @@ jobs:
       - name: Install dependencies and test Server
         run: |
           cd 02_Server
-          npm ci
+          npm install
           npm test
 
       - name: Install dependencies and test Client
         run: |
           cd 03_Client
-          npm ci
+          npm install
           CI=true npm test -- --watchAll=false
 
       - name: Set tag
