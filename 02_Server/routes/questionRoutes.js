@@ -25,10 +25,10 @@ const serverError = (errOrRes, req, res) => {
 router.get('/', (req, res) => {
   Question.find()
     .then(questions => {
-      const amount = parseInt(req.query.amount, 10);
-      if (amount) {
-        console.log('Show ' + amount + ' questions.');
-        questions = questions.slice(0, amount);
+      const number = parseInt(req.query.number, 10);
+      if (number) {
+        console.log('Show ' + number + ' questions.');
+        questions = questions.slice(0, number);
       } else {
         console.log('Show all questions.');
       }
