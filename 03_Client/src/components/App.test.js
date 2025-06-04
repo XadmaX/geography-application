@@ -4,7 +4,7 @@ import App from './App';
 import * as API from '../utils/api';
 
 jest.mock('../utils/api', () => ({
-  fetchQuesions: jest.fn(),
+  fetchQuestions: jest.fn(),
 }));
 
 const questions = [
@@ -12,7 +12,7 @@ const questions = [
 ];
 
 test('renders progress bar and then questionnaire after data load', async () => {
-  API.fetchQuesions.mockResolvedValueOnce(questions);
+  API.fetchQuestions.mockResolvedValueOnce(questions);
   render(
     <ThemeProvider theme={createTheme()}>
       <App />
