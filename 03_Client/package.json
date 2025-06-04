@@ -28,6 +28,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prop-types": "^15.8"
+    "prop-types": "^15.8",
+    "@testing-library/react": "^14",
+    "@testing-library/jest-dom": "^6",
+    "@testing-library/user-event": "^14"
   }
 }
