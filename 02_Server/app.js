@@ -19,6 +19,11 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(corsMiddleware());
 
+// Simple health-check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Initialize routes
 app.use('/questions', questionRoutes);
 
@@ -33,7 +38,7 @@ if (process.env.NODE_ENV !== 'test') {
     .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
     .then(() => {
       // Listen for requests
-      app.listen(PORT, function() {
+      app.listen(PORT, function () {
         console.log('Connected to Mongodb');
         console.log(`API listening on port ${PORT}`);
         console.log('Server started and wait requests');

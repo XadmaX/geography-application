@@ -49,7 +49,9 @@ describe('Question routes', () => {
     spyOn(Question, 'findByIdAndUpdate').and.returnValue(Promise.resolve());
     spyOn(Question, 'findOne').and.returnValue(Promise.resolve(updated));
 
-    const res = await request(app).put('/questions/1').send({ question: 'Updated' });
+    const res = await request(app)
+      .put('/questions/1')
+      .send({ question: 'Updated' });
     expect(res.status).toBe(200);
     expect(res.body).toEqual(updated);
   });
@@ -59,7 +61,9 @@ describe('Question routes', () => {
     if (!Question.findByIdAndRemove) {
       Question.findByIdAndRemove = () => {};
     }
-    spyOn(Question, 'findByIdAndRemove').and.returnValue(Promise.resolve(removed));
+    spyOn(Question, 'findByIdAndRemove').and.returnValue(
+      Promise.resolve(removed),
+    );
 
     const res = await request(app).delete('/questions/1');
     expect(res.status).toBe(200);

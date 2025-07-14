@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 LABEL maintainer="xadmax@gmail.com"
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app

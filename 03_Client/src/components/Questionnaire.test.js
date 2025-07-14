@@ -13,7 +13,7 @@ test('navigates through questions and shows score modal', async () => {
   render(
     <ThemeProvider theme={createTheme()}>
       <Questionnaire questions={questions} />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 
   expect(screen.getByText('Q1?')).toBeInTheDocument();

@@ -8,6 +8,12 @@ services:
     ports:
       - '27017:27017'
     env_file: .env.db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     networks:
       - geography-network
   geography-server:
@@ -15,10 +21,17 @@ services:
     hostname: geography-server
     container_name: server
     depends_on:
-      - geography-db
+      geography-db:
+        condition: service_healthy
     ports:
       - '4000:4000'
     env_file: .env.srv
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - geography-network
   geography-frontend:
@@ -26,7 +39,8 @@ services:
     container_name: frontend
     hostname: geography-frontend
     depends_on:
-      - geography-server
+      geography-server:
+        condition: service_healthy
     ports:
       - '3000:3000'
     env_file:

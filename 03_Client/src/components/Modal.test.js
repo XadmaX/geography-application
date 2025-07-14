@@ -11,10 +11,12 @@ test('renders score information and handles retry', async () => {
   render(
     <ThemeProvider theme={createTheme()}>
       <Modal isOpen={true} onRetry={onRetry} score={score} />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 
-  expect(screen.getByText('Congratulations, you passed! 🤓')).toBeInTheDocument();
+  expect(
+    screen.getByText('Congratulations, you passed! 🤓'),
+  ).toBeInTheDocument();
   expect(screen.getByText('Total questions: 2')).toBeInTheDocument();
   expect(screen.getByText('Answered correctly: 2')).toBeInTheDocument();
 

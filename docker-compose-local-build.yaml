@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   geography-db:
@@ -8,17 +8,30 @@ services:
     ports:
       - '27017:27017'
     env_file: .env.db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
   geography-server:
     container_name: server
     build:
       context: 02_Server/.
       dockerfile: Dockerfile.compose
     depends_on:
-      - geography-db
+      geography-db:
+        condition: service_healthy
     ports:
       - '4000:4000'
 #    command: sh wait-mongo.sh
     env_file: .env.srv
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
   geography-frontend:
     container_name: frontend
     hostname: geography-frontend
@@ -26,7 +39,8 @@ services:
       context: 03_Client/
       dockerfile: Dockerfile.compose
     depends_on:
-      - geography-server
+      geography-server:
+        condition: service_healthy
     ports:
       - '3000:3000'
     env_file: .env.ui

@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 LABEL mantainer="xadmax@gmail.com"
 
 WORKDIR /usr/src/app
@@ -6,6 +6,7 @@ ENV MONGODB_URL="mongodb://admin:admin@geography-db:27017/geographydb?authSource
 
 COPY package.json /usr/src/app
 RUN npm install
+RUN sed -i 's/\r$//' wait-mongo.sh
 COPY . .
 
 EXPOSE 4000

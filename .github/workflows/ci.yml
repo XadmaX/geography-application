@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install and test Server
+        working-directory: 02_Server
+        run: |
+          npm ci
+          npm run format:check
+          npm test
+
+      - name: Install and test Client
+        working-directory: 03_Client
+        env:
+          CI: "true"
+        run: |
+          npm ci
+          npm run format:check
+          npm test -- --watchAll=false 

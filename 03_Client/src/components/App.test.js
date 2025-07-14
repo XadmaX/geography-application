@@ -16,7 +16,7 @@ test('renders progress bar and then questionnaire after data load', async () => 
   render(
     <ThemeProvider theme={createTheme()}>
       <App />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
   expect(screen.getByRole('progressbar')).toBeInTheDocument();
   expect(await screen.findByText('Q1?')).toBeInTheDocument();

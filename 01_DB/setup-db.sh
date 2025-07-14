@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mongosh mongodb://127.0.0.1:27017/$MONGO_INITDB_DATABASE <<EOF
+mongosh "mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@127.0.0.1:27017/$MONGO_INITDB_DATABASE?authSource=admin" <<EOF
 db.questions.insertMany([{
     "question": "Which planet having all the circumstances for the existence of life?",
     "answers": ["Earth", "Moon", "Sun", "Jupiter"],
