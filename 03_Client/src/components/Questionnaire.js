@@ -1,30 +1,19 @@
+/*
+ * TODO: Increase test coverage for edge cases (no answers, invalid index)
+ * TODO: Prepare for React 19 after Vite migration
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 import Modal from './Modal';
 import Answers from './Answers';
 import { getSteps, getStepContent, countScore } from '../utils/helpers';
-
-const styles = theme => ({
-  root: {
-    maxWidth: 560,
-    marginRight: 'auto',
-    marginLeft: 'auto',
-  },
-  button: {
-    marginTop: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  actionsContainer: {
-    marginBottom: theme.spacing(2),
-  },
-});
 
 class Questionnaire extends React.Component {
   static propTypes = {
@@ -68,16 +57,8 @@ class Questionnaire extends React.Component {
     });
   };
 
-  handleOpenModal = () => {
-    this.setState({ isModalOpen: true });
-  };
-
-  handleCloseModal = () => {
-    this.setState({ isModalOpen: false });
-  };
-
   render() {
-    const { classes, questions } = this.props;
+    const { questions } = this.props;
     const {
       activeStep,
       selectedAnswerIdx,
@@ -92,7 +73,7 @@ class Questionnaire extends React.Component {
     }
 
     return (
-      <div className={classes.root}>
+      <Box sx={{ maxWidth: 560, mx: 'auto' }}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map(({ id, question }, index) => (
             <Step key={id}>
@@ -103,17 +84,17 @@ class Questionnaire extends React.Component {
                   value={selectedAnswerIdx}
                   onSelect={this.handleAnswerSelect}
                 />
-                <div className={classes.actionsContainer}>
+                <Box sx={{ mb: 2 }}>
                   <Button
                     disabled={selectedAnswerIdx === null}
                     variant="contained"
                     color="primary"
                     onClick={this.handleNextQuestion}
-                    className={classes.button}
+                    sx={{ mt: 1, mr: 1 }}
                   >
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>
-                </div>
+                </Box>
               </StepContent>
             </Step>
           ))}
@@ -121,13 +102,12 @@ class Questionnaire extends React.Component {
 
         <Modal
           isOpen={isModalOpen}
-          onClose={this.handleCloseModal}
           onRetry={this.handleReset}
           score={score}
         />
-      </div>
+      </Box>
     );
   }
 }
 
-export default withStyles(styles)(Questionnaire);
+export default Questionnaire;

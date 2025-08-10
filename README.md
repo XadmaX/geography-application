@@ -72,3 +72,22 @@ docker compose up
 ```
 
 The client will auto-start only after the server is healthy.
+
+## Architecture overview
+
+- Client: React 18 + MUI (sx), Axios; env var `REACT_APP_GEO_SRV` for API host
+- API: Express 5, Mongoose 8, Helmet, Compression; validation via Joi
+- DB: MongoDB (seeded), with `mongosh` healthcheck in Compose
+- Containers: non-root users, healthcheck-ordered startup
+
+### Server endpoints
+- `GET /api/health` → `{ status: 'ok' }`
+- `GET /questions?number=N` → returns all or first N
+- `GET /questions/:id` → single question
+- `POST /questions` → create (validated)
+- `PUT /questions/:id` → update (validated)
+- `DELETE /questions/:id` → remove
+
+### Testing and coverage
+- Client: Jest + RTL. 100% coverage.
+- Server: Jasmine + Supertest + nyc. High coverage; validation and happy-paths covered. Startup/shutdown and error plumbing intentionally deprioritized.

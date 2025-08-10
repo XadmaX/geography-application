@@ -1,3 +1,4 @@
+// TODO: Consider adding retry logic and baseURL instance
 import axios from 'axios';
 
 const mapper = questions =>
@@ -5,6 +6,6 @@ const mapper = questions =>
 
 export const fetchQuestions = amount =>
   axios
-    .get(`http://${process.env.GEO_SRV}/questions?number=${amount}`)
+    .get(`http://${process.env.REACT_APP_GEO_SRV}/questions?number=${amount}`)
     .then(({ data }) => mapper(data))
     .catch(console.log);

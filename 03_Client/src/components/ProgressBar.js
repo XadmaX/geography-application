@@ -1,17 +1,11 @@
 import React from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
-import { withStyles } from '@mui/styles';
+import Box from '@mui/material/Box';
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-};
-
-const ProgressBar = ({ classes }) => (
-  <div className={classes.root}>
+const ProgressBar = () => (
+  <Box sx={{ flexGrow: 1 }}>
     <LinearProgress />
-  </div>
+  </Box>
 );
 
-export default withStyles(styles)(ProgressBar);
+export default ProgressBar;

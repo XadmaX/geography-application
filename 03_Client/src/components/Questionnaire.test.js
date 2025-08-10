@@ -25,4 +25,7 @@ test('navigates through questions and shows score modal', async () => {
   await user.click(screen.getByRole('button', { name: /finish/i }));
 
   expect(await screen.findByText(/congratulations/i)).toBeInTheDocument();
+  // Click Retry to trigger reset
+  await user.click(screen.getByRole('button', { name: /retry/i }));
+  expect(screen.getByText('Q1?')).toBeInTheDocument();
 });

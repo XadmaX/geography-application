@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -11,19 +10,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-const styles = theme => ({
-  container: {
-    minWidth: 600,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  listItemText: {
-    textAlign: 'center',
-  },
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const Transition = props => <Slide direction="up" {...props} />;
 
 class Modal extends React.Component {
   static propTypes = {
@@ -43,17 +32,17 @@ class Modal extends React.Component {
   };
 
   render() {
-    const { isOpen, onRetry, classes, score } = this.props;
+    const { isOpen, onRetry, score } = this.props;
 
     return (
       <Dialog
         open={isOpen}
         TransitionComponent={Transition}
-        classes={{ paper: classes.container }}
+        PaperProps={{ sx: { minWidth: 600 } }}
         aria-labelledby="score-dialog-slide-title"
         aria-describedby="score-dialog-slide-description"
       >
-        <DialogTitle id="score-dialog-slide-title" className={classes.title}>
+        <DialogTitle id="score-dialog-slide-title" sx={{ textAlign: 'center' }}>
           {score.passed
             ? 'Congratulations, you passed! 🤓'
             : "You didn't pass, try again! 🤨"}
@@ -62,13 +51,13 @@ class Modal extends React.Component {
           <List>
             <ListItem>
               <ListItemText
-                className={classes.listItemText}
+                sx={{ textAlign: 'center' }}
                 primary={`Total questions: ${score.total}`}
               />
             </ListItem>
             <ListItem>
               <ListItemText
-                className={classes.listItemText}
+                sx={{ textAlign: 'center' }}
                 primary={`Answered correctly: ${score.correct}`}
               />
             </ListItem>
@@ -84,4 +73,4 @@ class Modal extends React.Component {
   }
 }
 
-export default withStyles(styles)(Modal);
+export default Modal;

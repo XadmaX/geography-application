@@ -6,8 +6,9 @@ ENV MONGODB_URL="mongodb://admin:admin@geography-db:27017/geographydb?authSource
 
 COPY package.json /usr/src/app
 RUN npm install
-RUN sed -i 's/\r$//' wait-mongo.sh
 COPY . .
+RUN sed -i 's/\r$//' wait-mongo.sh
 
 EXPOSE 4000
+USER node
 CMD ["node", "app.js"]

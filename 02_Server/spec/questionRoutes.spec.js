@@ -35,7 +35,7 @@ describe('Question routes', () => {
   });
 
   it('POST /questions should create a question', async () => {
-    const payload = { question: 'New?' };
+    const payload = { question: 'New?', answers: ['A'], answer: 0 };
     const created = { _id: '1', ...payload };
     spyOn(Question, 'create').and.returnValue(Promise.resolve(created));
 
@@ -51,7 +51,7 @@ describe('Question routes', () => {
 
     const res = await request(app)
       .put('/questions/1')
-      .send({ question: 'Updated' });
+      .send({ question: 'Updated', answers: ['A'], answer: 0 });
     expect(res.status).toBe(200);
     expect(res.body).toEqual(updated);
   });

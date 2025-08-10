@@ -1,26 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@mui/styles';
+import { Box } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  formControl: {
-    margin: theme.spacing(2),
-  },
-  group: {
-    margin: `${theme.spacing(1)} 0`,
-  },
-});
-
 class Answers extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     items: PropTypes.arrayOf(PropTypes.string),
     value: PropTypes.number,
   };
@@ -35,21 +22,21 @@ class Answers extends React.Component {
   };
 
   render() {
-    const { classes, items, value } = this.props;
+    const { items, value } = this.props;
 
     return (
-      <div className={classes.root}>
-        <FormControl component="fieldset" className={classes.formControl}>
+      <Box sx={{ display: 'flex' }}>
+        <FormControl component="fieldset" sx={{ m: 2 }}>
           <RadioGroup
             aria-label="answers"
             name="answers"
-            className={classes.group}
+            sx={{ my: 1 }}
             value={value}
             onChange={this.handleChange}
           >
             {items.map((item, idx) => (
               <FormControlLabel
-                key={item}
+                key={idx}
                 value={String(idx)}
                 control={<Radio />}
                 label={item}
@@ -57,9 +44,9 @@ class Answers extends React.Component {
             ))}
           </RadioGroup>
         </FormControl>
-      </div>
+      </Box>
     );
   }
 }
 
-export default withStyles(styles)(Answers);
+export default Answers;
